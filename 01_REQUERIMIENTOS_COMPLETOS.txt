@@ -1,0 +1,2196 @@
+NAYE FASHION STORE
+01_REQUERIMIENTOS_COMPLETOS.txt
+
+Versión del documento: 1.0
+Fecha de definición: 19 de agosto de 2026
+Estado: REQUERIMIENTOS BASE DEFINIDOS
+Propósito del archivo: fuente principal de requerimientos que debe seguirse durante todo el desarrollo.
+
+======================================================================
+0. REGLA PRINCIPAL DEL PROYECTO
+======================================================================
+
+Este archivo define QUÉ debe cumplir el proyecto Naye Fashion Store.
+
+Todo el desarrollo debe seguir estos requerimientos a rajatabla.
+
+No se deben agregar funcionalidades que no sean necesarias para cumplir lo
+solicitado en el proyecto académico.
+
+No se deben eliminar requisitos solicitados en las guías del proyecto.
+
+Cuando existan varias soluciones técnicamente válidas para cumplir un mismo
+requisito, se debe elegir la alternativa más simple, rápida de implementar,
+fácil de probar, fácil de explicar, segura para el alcance académico y fácil
+de reproducir en otro equipo.
+
+Prioridad general del proyecto:
+
+1. Que funcione.
+2. Que cumpla los requerimientos.
+3. Que sea seguro dentro del alcance del proyecto.
+4. Que sea simple de entender.
+5. Que sea simple de ejecutar.
+6. Que sea simple de demostrar.
+7. Que sea reproducible en otro equipo.
+8. Evitar sobreingeniería.
+
+No se debe aumentar la complejidad del proyecto sin una necesidad concreta.
+
+No se deben crear capas, patrones, servicios, dependencias, infraestructura o
+funcionalidades únicamente por apariencia profesional.
+
+El código debe poder ser comprendido y explicado por un desarrollador junior.
+
+======================================================================
+1. IDENTIFICACIÓN DEL PROYECTO
+======================================================================
+
+Nombre:
+Naye Fashion Store
+
+Tipo de proyecto:
+Aplicación móvil multiplataforma con backend propio y base de datos relacional.
+
+Área:
+Administración de una tienda de ropa.
+
+Arquitectura general:
+Cliente-servidor.
+
+Cliente:
+Aplicación móvil desarrollada con Flutter y Dart.
+
+Servidor:
+API REST desarrollada con Node.js, TypeScript y Express.
+
+Persistencia:
+Base de datos PostgreSQL administrada mediante Prisma ORM.
+
+Usuarios principales:
+- Propietarios.
+- Empleados.
+
+======================================================================
+2. PROPÓSITO DEL PROYECTO
+======================================================================
+
+Naye Fashion Store tiene como propósito optimizar la administración de una
+tienda de ropa mediante el control digital de sus operaciones principales.
+
+El proyecto debe permitir trabajar con la información necesaria para:
+
+- gestionar el inventario de productos;
+- consultar existencias;
+- registrar ventas;
+- actualizar productos;
+- controlar ingresos y gastos;
+- generar y consultar reportes relacionados con la operación del negocio.
+
+El objetivo es mejorar la organización de la información, reducir errores de
+registros manuales y agilizar los procesos administrativos de la tienda.
+
+La aplicación móvil actuará como cliente.
+
+El backend será responsable de:
+
+- recibir solicitudes de la aplicación móvil;
+- validar los datos;
+- aplicar las reglas de negocio;
+- gestionar la autenticación;
+- consultar y modificar la base de datos;
+- responder mediante una API REST en formato JSON.
+
+La base de datos será responsable de almacenar la información de forma
+estructurada y mantener la integridad de los datos.
+
+======================================================================
+3. ALCANCE ACADÉMICO QUE DEBE CUMPLIRSE
+======================================================================
+
+El proyecto debe cubrir los requerimientos acumulados planteados para:
+
+- diseño y organización de la base de datos;
+- modelado de entidades;
+- definición de relaciones;
+- normalización;
+- uso de ORM;
+- implementación de operaciones CRUD;
+- diseño de endpoints RESTful;
+- validación de datos;
+- reglas de negocio;
+- manejo estructurado de errores;
+- códigos de estado HTTP;
+- respuestas JSON estandarizadas;
+- autenticación;
+- seguridad básica;
+- pruebas del backend;
+- documentación de la API;
+- optimización del backend;
+- caché;
+- prevención y corrección de consultas N+1;
+- uso justificado de lazy loading o eager loading;
+- procesamiento asíncrono mediante una cola o worker;
+- comparación del comportamiento antes y después de una optimización;
+- configuración del entorno Flutter;
+- ejecución de la aplicación móvil;
+- comunicación real entre Flutter y el backend;
+- documentación reproducible del entorno;
+- repositorio GitHub;
+- evidencia para el video explicativo.
+
+No se requiere convertir Naye Fashion Store en un ecommerce comercial completo.
+
+El alcance se concentra en cumplir correctamente el proyecto integrador y en
+demostrar técnicamente que sus componentes funcionan.
+
+======================================================================
+4. PRINCIPIOS OBLIGATORIOS DE IMPLEMENTACIÓN
+======================================================================
+
+4.1. Simplicidad
+
+Se debe utilizar la solución más sencilla que satisfaga completamente el
+requisito correspondiente.
+
+Si una funcionalidad puede resolverse correctamente sin agregar una tecnología
+adicional, se debe preferir la solución que utilice menos infraestructura.
+
+4.2. Funcionalidad
+
+No se considerará suficiente que el código únicamente exista.
+
+Cada componente necesario debe poder ejecutarse y demostrarse.
+
+4.3. Seguridad
+
+La simplicidad no puede utilizarse como justificación para:
+
+- guardar contraseñas en texto plano;
+- exponer secretos;
+- aceptar cualquier dato sin validación;
+- permitir acceso a endpoints protegidos sin autenticación;
+- escribir credenciales directamente en el código;
+- exponer información sensible innecesariamente.
+
+4.4. Reproducibilidad
+
+El proyecto debe poder clonarse desde GitHub y configurarse en otro equipo
+siguiendo únicamente las instrucciones documentadas en el repositorio.
+
+4.5. Explicabilidad
+
+La solución debe ser suficientemente clara para que durante el video se pueda
+explicar:
+
+- qué componente se está mostrando;
+- para qué sirve;
+- cómo funciona;
+- cómo se conecta con los demás componentes.
+
+4.6. No sobreingeniería
+
+No se debe implementar una arquitectura empresarial innecesaria.
+
+No se deben introducir microservicios, contenedores, servicios externos,
+colas distribuidas, almacenamiento en la nube u otras herramientas si el mismo
+requisito puede demostrarse de forma correcta mediante una solución local y
+más sencilla.
+
+======================================================================
+5. HERRAMIENTAS Y TECNOLOGÍAS DEFINIDAS
+======================================================================
+
+Las siguientes herramientas conforman la base técnica del proyecto.
+
+Las herramientas de asistencia al desarrollo no forman parte de esta sección.
+
+5.1. Control de versiones y repositorio
+
+Git
+Uso:
+Control de versiones del código.
+
+GitHub
+Uso:
+Repositorio remoto y evidencia adicional de entrega.
+
+El repositorio debe contener el código y la documentación necesarios para que
+otra persona pueda reproducir el entorno.
+
+5.2. Editor
+
+Visual Studio Code
+
+Uso:
+Editor principal para backend, Flutter y documentación del proyecto.
+
+La versión exacta instalada en el equipo que se utilice para la evidencia
+deberá registrarse en el README antes de realizar la entrega.
+
+5.3. Aplicación móvil
+
+Flutter:
+Versión utilizada y probada: 3.41.7
+Canal: stable
+
+Dart:
+Versión utilizada y probada: 3.11.5
+
+DevTools:
+Versión observada en el entorno actual: 2.54.2
+
+Android SDK:
+Versión utilizada en el entorno actual: 36.1.0
+
+Android Platform:
+android-36.1
+
+Android Build Tools:
+36.1.0
+
+Java:
+OpenJDK 21
+Versión observada en el entorno actual: 21.0.10
+
+Destino principal del proyecto:
+Android.
+
+Flutter mantiene capacidad multiplataforma, pero para la demostración y el
+desarrollo inmediato se priorizará Android.
+
+No se debe actualizar Flutter únicamente por existir una versión más nueva.
+
+Flutter 3.41.7 es la versión base definida para Naye Fashion Store mientras no
+aparezca un impedimento técnico real que obligue a modificar esta decisión.
+
+5.4. Backend
+
+Node.js:
+Versión base definida: 24.19.0 LTS.
+
+npm:
+Gestor de paquetes del backend.
+
+TypeScript:
+Lenguaje principal del backend.
+
+Express:
+Framework HTTP para implementar la API REST.
+
+Se utilizará Express 5.x.
+
+La versión exacta de las dependencias npm quedará fijada por package.json y
+package-lock.json una vez inicializado el proyecto.
+
+5.5. Base de datos
+
+PostgreSQL:
+Versión base definida: 17.10.
+
+El proyecto debe mantenerse dentro de la rama PostgreSQL 17.
+
+Puerto predeterminado:
+5432.
+
+Nombre esperado de la base de datos local:
+naye_fashion_store
+
+Las credenciales de la base de datos no deben quedar escritas directamente en
+el código.
+
+5.6. ORM
+
+ORM seleccionado para implementación:
+Prisma ORM.
+
+Línea de versión:
+Prisma ORM 7.x.
+
+La versión exacta utilizada quedará bloqueada mediante package-lock.json.
+
+ORM de comparación académica:
+TypeORM.
+
+La comparación entre Prisma ORM y TypeORM debe considerar, como solicita la
+guía:
+
+- manejo de relaciones;
+- migraciones;
+- rendimiento;
+- documentación;
+- facilidad de integración con la API.
+
+La implementación real del proyecto utilizará Prisma ORM.
+
+5.7. Validación
+
+Zod
+
+Uso:
+Validar los datos recibidos por la API antes de enviarlos a la lógica de
+negocio o a la base de datos.
+
+La versión exacta quedará fijada mediante package-lock.json.
+
+5.8. Autenticación
+
+JWT
+
+Uso:
+Autenticación mediante token firmado.
+
+bcrypt
+
+Uso:
+Hash seguro de contraseñas.
+
+La implementación puede utilizar una biblioteca compatible con bcrypt que
+mantenga simple la instalación del proyecto.
+
+5.9. Documentación de API
+
+OpenAPI
+Swagger UI
+
+Uso:
+Documentar y visualizar los endpoints de la API.
+
+Para evitar comentarios extensos dentro del código, la especificación OpenAPI
+debe mantenerse en un archivo independiente en lugar de depender de bloques
+JSDoc dentro de controladores o rutas.
+
+5.10. Pruebas manuales de API
+
+Postman
+
+Uso:
+Ejecutar y documentar solicitudes hacia los endpoints.
+
+Insomnia u otra herramienta equivalente solo será necesaria si existe un
+impedimento real para utilizar Postman.
+
+5.11. Comunicación HTTP desde Flutter
+
+Paquete:
+http
+
+Uso:
+Realizar solicitudes HTTP desde Flutter hacia la API.
+
+No se utilizará una biblioteca de red más compleja si el paquete http cumple
+el requerimiento.
+
+5.12. Caché
+
+La implementación inicial utilizará caché en memoria del proceso Node.js.
+
+La estructura puede implementarse mediante una solución sencilla basada en
+Map.
+
+No se instalará Redis únicamente para demostrar el requisito de caché si la
+implementación en memoria permite cumplir correctamente:
+
+- cache-aside;
+- tiempo de vida;
+- invalidación explícita;
+- comparación antes y después.
+
+5.13. Procesamiento asíncrono
+
+Se utilizará un worker de Node.js.
+
+La implementación preferida será mediante worker_threads de Node.js.
+
+No se utilizarán Redis y BullMQ mientras un worker local permita demostrar de
+forma correcta el requisito académico de procesamiento asíncrono.
+
+La tarea seleccionada debe estar relacionada con una funcionalidad ya incluida
+en Naye Fashion Store.
+
+La opción preferida es utilizar el worker para procesamiento de un reporte o
+resumen relacionado con ventas.
+
+======================================================================
+6. REPRODUCIBILIDAD OBLIGATORIA
+======================================================================
+
+Este requisito es obligatorio para todo el proyecto.
+
+Una persona con acceso al repositorio debe poder:
+
+1. clonar el repositorio;
+2. instalar los requisitos previos documentados;
+3. crear la base de datos;
+4. configurar las variables de entorno;
+5. instalar las dependencias;
+6. ejecutar las migraciones;
+7. cargar los datos iniciales necesarios;
+8. iniciar el backend;
+9. iniciar Flutter;
+10. configurar la dirección del backend;
+11. realizar una solicitud desde la aplicación móvil hacia la API.
+
+No se debe depender de:
+
+- rutas locales privadas;
+- contraseñas personales;
+- archivos que solo existan en el equipo original;
+- bases de datos creadas manualmente sin instrucciones;
+- direcciones IP escritas permanentemente en el código;
+- configuraciones no documentadas.
+
+6.1. Variables de entorno del backend
+
+Las configuraciones variables deben salir del código.
+
+Como mínimo debe existir configuración para:
+
+DATABASE_URL
+JWT_SECRETO
+PUERTO
+
+El archivo real con secretos no debe subirse al repositorio.
+
+Debe existir un archivo de ejemplo para indicar qué variables debe crear la
+persona que clone el proyecto.
+
+6.2. URL del backend en Flutter
+
+La URL base de la API no debe quedar fija de manera irreversible dentro del
+código.
+
+Debe poder definirse al ejecutar o compilar la aplicación.
+
+La solución preferida es utilizar --dart-define y String.fromEnvironment para
+evitar agregar una dependencia únicamente para leer la URL.
+
+Ejemplo conceptual:
+
+URL_API
+
+La dirección concreta dependerá del destino utilizado.
+
+En emulador Android, la dirección del equipo anfitrión puede requerir una
+dirección diferente de localhost.
+
+En dispositivo físico, deberá utilizarse una dirección alcanzable desde el
+dispositivo dentro de la red de desarrollo.
+
+La dirección utilizada finalmente debe explicarse en el video y en el README,
+incluyendo por qué se utilizó.
+
+6.3. Dependencias reproducibles
+
+Backend:
+package.json
+package-lock.json
+
+Flutter:
+pubspec.yaml
+pubspec.lock
+
+Estos archivos deben mantenerse en el repositorio.
+
+No se deben borrar los archivos de bloqueo de dependencias sin una razón
+técnica.
+
+6.4. Base de datos reproducible
+
+El esquema de la base de datos debe poder reconstruirse mediante Prisma.
+
+Se deben utilizar migraciones.
+
+No se debe exigir que otra persona reciba una copia manual de la base de datos
+del equipo original para poder ejecutar el proyecto.
+
+Debe existir un mecanismo sencillo de datos iniciales para disponer de la
+información mínima necesaria para demostrar el sistema.
+
+Se utilizará un seed de Prisma para cargar únicamente datos de demostración
+necesarios.
+
+======================================================================
+7. MODELO DE DATOS: ALCANCE FUNCIONAL
+======================================================================
+
+El detalle completo de tablas, columnas, tipos, claves, restricciones, índices,
+relaciones y decisiones del esquema se definirá en:
+
+02_BASE_DE_DATOS.txt
+
+Este archivo únicamente establece las entidades que el proyecto necesita.
+
+Entidades del proyecto:
+
+- Usuario.
+- Categoria.
+- Producto.
+- Venta.
+- DetalleVenta.
+- MovimientoFinanciero.
+
+7.1. Corrección autorizada del modelo original
+
+Se encuentra autorizada la corrección mínima necesaria del modelo de Semana 4.
+
+La corrección debe mantener el propósito y las relaciones planteadas
+originalmente.
+
+Se debe:
+
+- mantener Venta como entidad independiente;
+- mantener DetalleVenta como entidad asociada a Venta y Producto;
+- incorporar en Producto la referencia necesaria hacia Categoria.
+
+No se deben realizar cambios adicionales al modelo únicamente por preferencia
+personal.
+
+El diseño detallado se congelará en 02_BASE_DE_DATOS.txt.
+
+7.2. Relaciones funcionales obligatorias
+
+Categoria -> Producto:
+Uno a muchos.
+
+Una categoría puede contener varios productos.
+
+Un producto debe pertenecer a una categoría.
+
+Usuario -> Venta:
+Uno a muchos.
+
+Un usuario puede registrar varias ventas.
+
+Cada venta es registrada por un usuario.
+
+Venta -> DetalleVenta:
+Uno a muchos.
+
+Una venta contiene uno o varios detalles.
+
+Producto -> DetalleVenta:
+Uno a muchos.
+
+Un producto puede aparecer en diferentes detalles de venta.
+
+Venta <-> Producto:
+Muchos a muchos resuelto mediante DetalleVenta.
+
+======================================================================
+8. NORMALIZACIÓN Y DISEÑO DE BASE DE DATOS
+======================================================================
+
+Como parte del análisis solicitado, el modelo debe revisarse aplicando criterios
+básicos de:
+
+- Primera Forma Normal.
+- Segunda Forma Normal.
+- Tercera Forma Normal.
+
+Se deben identificar:
+
+- claves primarias;
+- claves foráneas;
+- entidades asociativas;
+- relaciones;
+- cardinalidades.
+
+Se debe elaborar o conservar un Diagrama Entidad-Relación utilizando una
+notación estándar.
+
+Se deben utilizar restricciones según corresponda:
+
+- NOT NULL;
+- UNIQUE;
+- CHECK;
+- claves primarias;
+- claves foráneas.
+
+Se deben proponer índices para las consultas que la aplicación ejecutará con
+mayor frecuencia.
+
+El detalle de los índices se definirá en 02_BASE_DE_DATOS.txt.
+
+======================================================================
+9. ENTIDAD PRINCIPAL PARA CRUD
+======================================================================
+
+La entidad principal seleccionada para demostrar el CRUD completo será:
+
+Producto
+
+Motivo funcional:
+Producto representa el núcleo del inventario y permite demostrar creación,
+consulta, actualización, eliminación, validaciones, relaciones y reglas de
+negocio directamente vinculadas con Naye Fashion Store.
+
+Producto debe permitir como mínimo:
+
+- crear;
+- listar;
+- consultar por identificador;
+- actualizar;
+- eliminar cuando la integridad de los datos lo permita.
+
+El listado debe soportar paginación.
+
+La consulta individual debe responder correctamente cuando el producto existe
+y cuando no existe.
+
+La actualización utilizará PATCH como método principal para mantener una
+implementación sencilla de cambios parciales.
+
+No es obligatorio implementar simultáneamente PUT y PATCH.
+
+9.1. Estrategia de eliminación de Producto
+
+Se utilizará eliminación física cuando el producto pueda eliminarse sin romper
+la integridad de información histórica.
+
+Si un producto está referenciado por detalles de ventas existentes, no debe
+eliminarse físicamente.
+
+En ese caso la API debe rechazar la eliminación con una respuesta de conflicto.
+
+Esta decisión evita agregar un sistema adicional de eliminación lógica si no
+es indispensable y preserva los datos históricos de ventas.
+
+======================================================================
+10. REGLAS DE NEGOCIO OBLIGATORIAS
+======================================================================
+
+Deben mantenerse las reglas planteadas en la definición original del proyecto.
+
+10.1.
+No se puede registrar un producto con precio menor o igual a cero.
+
+10.2.
+El stock de un producto no puede ser negativo.
+
+10.3.
+Cada producto debe pertenecer obligatoriamente a una categoría.
+
+10.4.
+No se puede registrar una venta si la cantidad solicitada supera el stock
+disponible.
+
+10.5.
+El correo electrónico de cada usuario debe ser único dentro del sistema.
+
+10.6.
+Toda venta debe tener al menos un detalle de venta asociado.
+
+10.7.
+Cada movimiento financiero debe registrarse como ingreso o gasto.
+
+10.8.
+El total de una venta debe ser igual a la suma de los subtotales de sus
+detalles.
+
+10.9.
+La cantidad de cada detalle de venta debe ser mayor que cero.
+
+10.10.
+El subtotal de cada detalle debe calcularse a partir de la cantidad y el precio
+del producto utilizado en la venta.
+
+10.11.
+Al registrar correctamente una venta se debe actualizar el stock de los
+productos correspondientes.
+
+La lógica de la venta debe impedir dejar cantidades de stock negativas.
+
+======================================================================
+11. AUTENTICACIÓN
+======================================================================
+
+El backend debe incluir autenticación funcional.
+
+La autenticación debe permitir que un usuario registrado pueda iniciar sesión
+con sus credenciales.
+
+Flujo mínimo:
+
+1. recibir correo y contraseña;
+2. buscar el usuario correspondiente;
+3. verificar la contraseña contra el hash almacenado;
+4. si las credenciales son correctas, generar un JWT;
+5. devolver el token;
+6. utilizar el token para consumir endpoints protegidos.
+
+El token debe contener únicamente la información mínima necesaria para la
+autenticación y autorización del alcance actual.
+
+Información mínima esperada:
+
+- identificador del usuario;
+- rol.
+
+No se debe incluir la contraseña dentro del token.
+
+Las contraseñas deben almacenarse utilizando hash bcrypt.
+
+No deben almacenarse contraseñas en texto plano.
+
+11.1. Optimización de autenticación
+
+La validación del token no debe producir consultas redundantes a la base de
+datos en cada solicitud cuando la información necesaria ya se encuentra
+firmada en el JWT.
+
+El middleware debe validar como mínimo:
+
+- firma del token;
+- expiración;
+- existencia de la información mínima requerida.
+
+No se agregará una consulta adicional de Usuario en todas las solicitudes si
+no existe una regla funcional que la necesite.
+
+Esto debe poder explicarse como parte de la optimización de autenticación.
+
+======================================================================
+12. API REST
+======================================================================
+
+El backend debe exponer una API REST.
+
+Formato de intercambio:
+JSON.
+
+Prefijo recomendado:
+/api
+
+Los endpoints deben utilizar métodos HTTP coherentes con la operación.
+
+Métodos requeridos cuando corresponda:
+
+- POST;
+- GET;
+- PATCH;
+- DELETE.
+
+PUT no será obligatorio si PATCH resuelve correctamente la actualización
+parcial elegida para el CRUD principal.
+
+12.1. Endpoints mínimos definidos
+
+AUTENTICACIÓN
+
+POST /api/autenticacion/iniciar-sesion
+Propósito:
+Validar credenciales y devolver un JWT.
+
+PRODUCTOS
+
+POST /api/productos
+Propósito:
+Crear un producto.
+
+GET /api/productos
+Propósito:
+Listar productos con paginación.
+
+GET /api/productos/:id
+Propósito:
+Consultar un producto específico.
+
+PATCH /api/productos/:id
+Propósito:
+Actualizar parcialmente un producto.
+
+DELETE /api/productos/:id
+Propósito:
+Eliminar un producto cuando la integridad de los datos lo permita.
+
+CATEGORÍAS
+
+GET /api/categorias
+Propósito:
+Obtener las categorías necesarias para consultar o asignar la categoría de un
+producto.
+
+No se implementará un CRUD adicional de Categoria si no es necesario para
+demostrar el alcance solicitado.
+
+Las categorías iniciales pueden cargarse mediante seed.
+
+VENTAS
+
+POST /api/ventas
+Propósito:
+Registrar una venta con uno o varios detalles.
+
+Debe validar stock y actualizar existencias.
+
+GET /api/ventas
+Propósito:
+Consultar ventas.
+
+Debe soportar paginación si se devuelve una colección.
+
+GET /api/ventas/:id
+Propósito:
+Consultar una venta con sus detalles.
+
+MOVIMIENTOS FINANCIEROS
+
+POST /api/movimientos-financieros
+Propósito:
+Registrar un ingreso o gasto.
+
+GET /api/movimientos-financieros
+Propósito:
+Consultar los movimientos financieros registrados.
+
+Debe soportar paginación si se devuelve una colección.
+
+REPORTES
+
+GET /api/reportes/resumen
+Propósito:
+Obtener un resumen sencillo con información ya perteneciente al alcance del
+proyecto.
+
+El reporte debe mantenerse simple.
+
+No debe evolucionar a un sistema analítico adicional.
+
+TAREA ASÍNCRONA
+
+POST /api/reportes/generar
+Propósito:
+Iniciar una tarea de generación o procesamiento de reporte mediante un worker.
+
+El endpoint existe para demostrar el requisito de procesamiento asíncrono
+utilizando una funcionalidad que ya pertenece al proyecto.
+
+12.2. Protección de endpoints
+
+El inicio de sesión debe ser público.
+
+Los endpoints que operen información del sistema deben requerir un JWT válido.
+
+No se implementará un sistema complejo de permisos por rol mientras la guía no
+lo requiera.
+
+Los roles Propietario y Empleado deben conservarse como parte de Usuario, pero
+no se agregarán reglas de autorización no solicitadas.
+
+======================================================================
+13. PAGINACIÓN
+======================================================================
+
+La operación Read del CRUD principal debe permitir listar registros con
+paginación.
+
+Se debe utilizar una solución sencilla.
+
+Parámetros esperados:
+
+pagina
+limite
+
+Valores predeterminados sugeridos:
+
+pagina = 1
+limite = 10
+
+El backend debe validar que los valores sean positivos y razonables.
+
+Las respuestas paginadas deben indicar como mínimo:
+
+- página actual;
+- límite utilizado;
+- cantidad total de registros;
+- cantidad total de páginas;
+- datos de la página solicitada.
+
+La misma estructura puede reutilizarse en otros listados si esto simplifica el
+backend.
+
+======================================================================
+14. VALIDACIONES
+======================================================================
+
+La API debe validar los datos antes de ejecutar operaciones de persistencia.
+
+Deben aplicarse, cuando corresponda:
+
+- obligatoriedad;
+- tipo;
+- formato;
+- longitud;
+- rango;
+- unicidad.
+
+Ejemplos relacionados directamente con el proyecto:
+
+Usuario:
+- correo obligatorio;
+- correo con formato válido;
+- correo único;
+- contraseña obligatoria para autenticación.
+
+Categoria:
+- categoría válida cuando se asigne a un producto.
+
+Producto:
+- nombre obligatorio;
+- talla obligatoria;
+- color obligatorio;
+- precio numérico mayor que cero;
+- stock entero mayor o igual a cero;
+- categoría obligatoria.
+
+Venta:
+- debe tener al menos un detalle;
+- debe existir el producto;
+- cantidad entera mayor que cero;
+- cantidad no puede superar el stock.
+
+MovimientoFinanciero:
+- tipo obligatorio;
+- tipo limitado a ingreso o gasto;
+- monto mayor que cero;
+- fecha válida cuando corresponda.
+
+Identificadores:
+- deben tener un formato válido;
+- deben corresponder a registros existentes cuando la operación lo requiera.
+
+Las validaciones reutilizables deben centralizarse únicamente cuando esto
+reduzca duplicación real.
+
+No se deben crear abstracciones de validación innecesarias.
+
+======================================================================
+15. RESPUESTAS JSON ESTANDARIZADAS
+======================================================================
+
+El backend debe mantener un formato consistente.
+
+Formato base de éxito:
+
+{
+  "exito": true,
+  "mensaje": "Descripción breve del resultado",
+  "datos": ...
+}
+
+Formato base de error:
+
+{
+  "exito": false,
+  "mensaje": "Descripción breve del error",
+  "errores": ...
+}
+
+El campo errores debe incluirse únicamente cuando exista información de
+validación o detalle que sea útil para el consumidor.
+
+En respuestas paginadas se puede incluir:
+
+{
+  "exito": true,
+  "mensaje": "Registros obtenidos correctamente",
+  "datos": [...],
+  "paginacion": {
+    "pagina": 1,
+    "limite": 10,
+    "totalRegistros": 0,
+    "totalPaginas": 0
+  }
+}
+
+No se debe devolver información técnica interna innecesaria al cliente.
+
+======================================================================
+16. CÓDIGOS HTTP
+======================================================================
+
+La API debe utilizar códigos HTTP apropiados.
+
+Códigos mínimos esperados:
+
+200 OK
+Para consultas y operaciones exitosas que devuelvan respuesta.
+
+201 Created
+Para registros creados correctamente.
+
+400 Bad Request
+Para datos inválidos o solicitudes que no cumplen el formato esperado.
+
+401 Unauthorized
+Para ausencia de autenticación o token inválido.
+
+404 Not Found
+Para recursos inexistentes.
+
+409 Conflict
+Para conflictos como:
+
+- correo duplicado;
+- nombre de categoría duplicado si aplica;
+- intento de eliminar un producto referenciado por ventas;
+- otra condición de integridad equivalente.
+
+500 Internal Server Error
+Para errores inesperados del servidor.
+
+No se debe responder siempre con 200 cuando la operación realmente terminó en
+error.
+
+======================================================================
+17. MANEJO ESTRUCTURADO DE ERRORES
+======================================================================
+
+El backend debe manejar errores de manera uniforme.
+
+Debe diferenciar, como mínimo:
+
+- error de validación;
+- error de autenticación;
+- recurso inexistente;
+- conflicto de datos;
+- regla de negocio incumplida;
+- error inesperado.
+
+Los errores inesperados pueden registrarse en consola durante desarrollo.
+
+La respuesta al cliente no debe exponer:
+
+- contraseñas;
+- JWT secreto;
+- cadena completa de conexión;
+- trazas internas innecesarias;
+- variables de entorno;
+- información sensible.
+
+No se debe crear una jerarquía extensa de clases de error si una implementación
+más sencilla permite mantener respuestas consistentes.
+
+======================================================================
+18. DOCUMENTACIÓN OPENAPI Y SWAGGER
+======================================================================
+
+La API debe disponer de documentación accesible mediante Swagger UI.
+
+La documentación debe reflejar los endpoints implementados.
+
+Para cada endpoint relevante debe mostrar:
+
+- ruta;
+- método HTTP;
+- propósito;
+- parámetros;
+- cuerpo solicitado cuando corresponda;
+- autenticación cuando corresponda;
+- respuesta exitosa;
+- posibles respuestas de error;
+- códigos HTTP.
+
+La documentación debe incluir el esquema de autenticación Bearer JWT para los
+endpoints protegidos.
+
+Se debe mantener una especificación OpenAPI independiente del código cuando
+esto permita respetar las reglas de comentarios del proyecto y reducir
+complejidad.
+
+La documentación debe ser suficiente para demostrar la API en el video.
+
+======================================================================
+19. PRUEBAS CON POSTMAN
+======================================================================
+
+Cada endpoint necesario debe probarse antes de considerar terminada su fase.
+
+La guía solicita verificar:
+
+- casos exitosos;
+- datos inválidos;
+- recursos inexistentes;
+- registros duplicados;
+- solicitudes no autorizadas.
+
+Las pruebas mínimas deben cubrir:
+
+AUTENTICACIÓN
+- inicio de sesión correcto;
+- contraseña incorrecta;
+- usuario inexistente;
+- solicitud protegida sin token;
+- solicitud protegida con token válido.
+
+PRODUCTOS
+- crear correctamente;
+- crear con datos inválidos;
+- listar;
+- listar con paginación;
+- consultar existente;
+- consultar inexistente;
+- actualizar correctamente;
+- actualizar con datos inválidos;
+- eliminar cuando sea válido;
+- intento de eliminar cuando exista un conflicto de integridad.
+
+VENTAS
+- registrar correctamente;
+- registrar con al menos un producto;
+- intentar registrar cantidad mayor al stock;
+- intentar registrar cantidad inválida;
+- consultar venta;
+- consultar venta inexistente.
+
+MOVIMIENTOS
+- registrar ingreso;
+- registrar gasto;
+- rechazar tipo inválido;
+- rechazar monto no válido.
+
+OPTIMIZACIÓN
+- ejecutar la operación seleccionada sin aprovechar caché;
+- ejecutar nuevamente con caché;
+- registrar evidencia del comportamiento;
+- demostrar la consulta N+1 identificada;
+- demostrar su corrección;
+- demostrar el worker.
+
+Se deben conservar evidencias de solicitudes y respuestas utilizadas para la
+presentación.
+
+======================================================================
+20. RELACIÓN ENTRE ENDPOINTS Y APLICACIÓN MÓVIL
+======================================================================
+
+La guía solicita explicar qué pantalla o funcionalidad de la aplicación móvil
+consumirá cada endpoint.
+
+La relación funcional prevista es:
+
+Inicio de sesión:
+POST /api/autenticacion/iniciar-sesion
+
+Listado de inventario/productos:
+GET /api/productos
+
+Consulta de producto:
+GET /api/productos/:id
+
+Registro de producto:
+POST /api/productos
+
+Edición de producto:
+PATCH /api/productos/:id
+
+Eliminación de producto:
+DELETE /api/productos/:id
+
+Selección o visualización de categorías:
+GET /api/categorias
+
+Registro de venta:
+POST /api/ventas
+
+Consulta de ventas:
+GET /api/ventas
+GET /api/ventas/:id
+
+Registro de ingreso o gasto:
+POST /api/movimientos-financieros
+
+Consulta de ingresos y gastos:
+GET /api/movimientos-financieros
+
+Visualización de reporte:
+GET /api/reportes/resumen
+
+Generación asíncrona de reporte:
+POST /api/reportes/generar
+
+No es obligatorio construir todas estas pantallas durante la demostración
+inicial de conexión Flutter-backend si el taller únicamente exige demostrar
+una solicitud exitosa.
+
+Sin embargo, debe poder explicarse qué funcionalidad del proyecto utilizaría
+cada endpoint.
+
+======================================================================
+21. SEGURIDAD
+======================================================================
+
+La guía solicita identificar al menos dos riesgos de seguridad y las medidas
+adoptadas.
+
+El proyecto debe cubrir como mínimo los siguientes riesgos.
+
+21.1. Acceso no autorizado
+
+Riesgo:
+Una persona podría intentar consumir operaciones protegidas sin autenticarse.
+
+Medida:
+JWT y middleware de autenticación.
+
+Los endpoints protegidos deben rechazar solicitudes que no presenten un token
+válido.
+
+21.2. Exposición de contraseñas
+
+Riesgo:
+Guardar contraseñas en texto plano permitiría comprometer las credenciales si
+la base de datos fuera expuesta.
+
+Medida:
+Hash bcrypt.
+
+La contraseña original no debe recuperarse ni devolverse en respuestas.
+
+21.3. Datos inválidos enviados a la API
+
+Riesgo:
+Una solicitud manipulada puede intentar guardar información inconsistente.
+
+Medida:
+Validación mediante Zod y reglas de negocio antes de persistir datos.
+
+Prisma debe utilizarse como vía normal de acceso a PostgreSQL.
+
+21.4. Exposición de secretos
+
+Riesgo:
+Subir credenciales o claves al repositorio.
+
+Medida:
+Variables de entorno.
+
+El archivo con valores reales debe excluirse de Git.
+
+Debe existir únicamente una plantilla sin secretos reales.
+
+21.5. Tráfico HTTP local durante desarrollo móvil
+
+La actividad permite autorizar de forma acotada el tráfico hacia el backend
+local.
+
+La autorización de tráfico sin cifrar debe limitarse al entorno de desarrollo
+y al host utilizado.
+
+No debe tratarse como configuración de producción.
+
+La configuración temporal utilizada para desarrollo debe quedar documentada y
+debe poder eliminarse antes de cualquier distribución.
+
+======================================================================
+22. OPTIMIZACIÓN DEL BACKEND
+======================================================================
+
+La optimización requerida debe realizarse sobre el backend real de Naye Fashion
+Store.
+
+No se debe crear un proyecto separado únicamente para demostrar optimización.
+
+Se debe:
+
+1. diagnosticar el backend;
+2. identificar una operación costosa;
+3. identificar una consulta con riesgo de N+1;
+4. implementar cache-aside;
+5. definir TTL;
+6. implementar invalidación explícita;
+7. corregir una consulta N+1;
+8. aplicar y justificar lazy loading o eager loading;
+9. configurar una tarea asíncrona;
+10. mejorar la autenticación evitando consultas redundantes;
+11. probar las mejoras;
+12. comparar al menos una operación antes y después.
+
+======================================================================
+23. CACHÉ
+======================================================================
+
+Estrategia obligatoria:
+cache-aside.
+
+Operación inicial seleccionada:
+Listado de productos.
+
+Endpoint relacionado:
+GET /api/productos
+
+Implementación:
+Caché en memoria.
+
+Funcionamiento esperado:
+
+1. llega una solicitud;
+2. el backend busca la clave correspondiente en caché;
+3. si existe y no ha expirado, utiliza el valor almacenado;
+4. si no existe o expiró, consulta PostgreSQL;
+5. guarda el resultado en caché;
+6. devuelve la respuesta.
+
+Tiempo de vida inicial definido:
+60 segundos.
+
+El TTL podrá modificarse únicamente si durante las pruebas aparece una razón
+concreta.
+
+Invalidación explícita:
+
+La caché relacionada con productos debe invalidarse cuando cambien los datos
+que afectan al listado.
+
+Como mínimo después de:
+
+- crear un producto;
+- actualizar un producto;
+- eliminar un producto.
+
+No se debe instalar un servidor de caché externo mientras la caché en memoria
+cumpla la demostración académica.
+
+Limitación conocida:
+La caché en memoria pertenece a una instancia del backend.
+
+Esta limitación es aceptable para el entorno local académico y debe
+mencionarse cuando se expliquen las limitaciones.
+
+======================================================================
+24. CONSULTA N+1
+======================================================================
+
+La relación seleccionada para analizar el riesgo N+1 será:
+
+Venta -> DetalleVenta -> Producto
+
+Caso de riesgo:
+Obtener una lista de ventas y posteriormente ejecutar consultas individuales
+adicionales para recuperar los detalles o productos de cada venta.
+
+Debe conservarse evidencia suficiente para explicar el problema antes de la
+optimización.
+
+La versión final debe evitar ejecutar una consulta independiente por cada
+registro cuando Prisma pueda recuperar la relación de manera más eficiente.
+
+La solución seleccionada será eager loading mediante las capacidades de Prisma
+para incluir o seleccionar las relaciones necesarias en una sola operación
+lógica.
+
+No se deben cargar campos o relaciones que no sean necesarios para la
+respuesta.
+
+======================================================================
+25. LAZY LOADING O EAGER LOADING
+======================================================================
+
+La guía exige aplicar y justificar una de las dos estrategias.
+
+Estrategia seleccionada:
+Eager loading.
+
+Relación:
+Venta con DetalleVenta y Producto.
+
+Justificación funcional:
+Cuando se consulta una venta para mostrar su contenido, los detalles y los
+productos forman parte directa de la información que se necesita presentar.
+
+Cargar esa información junto con la venta evita ejecutar consultas
+individuales posteriores por cada detalle.
+
+No se aplicará eager loading indiscriminadamente a todas las relaciones.
+
+Solo debe utilizarse donde la respuesta realmente necesite esos datos.
+
+======================================================================
+26. TAREA ASÍNCRONA
+======================================================================
+
+La guía exige configurar una tarea asíncrona mediante una cola de trabajo o
+worker.
+
+Alternativa seleccionada:
+Worker.
+
+Tecnología:
+worker_threads de Node.js.
+
+Funcionalidad seleccionada:
+Procesamiento de un reporte o resumen relacionado con ventas.
+
+Objetivo:
+Demostrar que una tarea que no necesita bloquear la operación HTTP principal
+puede enviarse a un worker.
+
+No se debe introducir Redis o BullMQ únicamente para cumplir este requisito si
+el worker local funciona correctamente.
+
+La demostración debe permitir explicar:
+
+- qué tarea se envía al worker;
+- cómo se inicia;
+- cómo se recibe o registra el resultado;
+- por qué se ejecuta fuera del flujo principal.
+
+======================================================================
+27. COMPARACIÓN ANTES Y DESPUÉS
+======================================================================
+
+Se debe comparar al menos una operación antes y después de la optimización.
+
+Operación recomendada:
+GET /api/productos
+
+Comparación:
+
+ANTES
+Primera consulta sin dato disponible en caché.
+
+DESPUÉS
+Consulta equivalente obteniendo el dato desde caché.
+
+La evidencia puede apoyarse en:
+
+- tiempo mostrado por Postman;
+- registros de consola del backend;
+- identificación clara del origen de los datos durante desarrollo.
+
+No se debe crear un sistema de benchmarking complejo para esta actividad.
+
+También debe demostrarse conceptualmente la reducción del problema N+1 después
+de aplicar eager loading.
+
+======================================================================
+28. OPORTUNIDADES DE OPTIMIZACIÓN ADICIONALES SOLICITADAS POR LA GUÍA
+======================================================================
+
+La guía solicita proponer al menos una oportunidad de optimización.
+
+El proyecto ya utilizará como oportunidades concretas:
+
+- paginación;
+- selección de campos cuando corresponda;
+- reutilización de validaciones cuando reduzca duplicación;
+- índices en consultas frecuentes;
+- caché del listado de productos;
+- eager loading para evitar N+1.
+
+No se implementarán optimizaciones adicionales si no aportan al cumplimiento
+del proyecto.
+
+======================================================================
+29. APLICACIÓN FLUTTER
+======================================================================
+
+La aplicación móvil debe crearse sobre el proyecto real Naye Fashion Store.
+
+No se debe realizar la actividad utilizando una aplicación genérica separada.
+
+Framework:
+Flutter 3.41.7 stable.
+
+Lenguaje:
+Dart 3.11.5.
+
+Destino principal:
+Android.
+
+La aplicación debe:
+
+- poder compilarse;
+- poder ejecutarse;
+- permitir recarga en caliente;
+- utilizar una URL configurable para la API;
+- realizar una solicitud hacia el backend propio;
+- recibir una respuesta;
+- mostrar en pantalla información proveniente de la API.
+
+Para la entrega de configuración del entorno no se necesita desarrollar toda
+la interfaz final de la tienda.
+
+La prioridad inicial es demostrar correctamente:
+
+Flutter -> API propia -> PostgreSQL -> respuesta JSON -> Flutter.
+
+======================================================================
+30. DESTINO DE EJECUCIÓN
+======================================================================
+
+Se debe configurar un destino Android.
+
+Puede utilizarse:
+
+- emulador Android; o
+- dispositivo Android físico.
+
+Se debe utilizar la alternativa que permita avanzar más rápido y que funcione
+correctamente en el equipo disponible.
+
+La decisión utilizada finalmente debe justificarse durante el video.
+
+Si el emulador genera problemas de recursos que retrasen el trabajo, se puede
+utilizar un dispositivo físico y declarar esa decisión.
+
+No se debe invertir tiempo innecesario en un destino que no sea requerido para
+la entrega si existe otra alternativa válida.
+
+======================================================================
+31. COMUNICACIÓN FLUTTER -> BACKEND
+======================================================================
+
+Debe demostrarse una solicitud exitosa hacia un endpoint del backend de Naye
+Fashion Store.
+
+La solicitud mínima recomendada para la primera integración es:
+
+GET /api/productos
+
+Motivo:
+Es simple de consumir, produce una respuesta visible y pertenece a la
+funcionalidad principal del sistema.
+
+La aplicación Flutter debe:
+
+1. obtener la URL base desde configuración;
+2. construir la ruta;
+3. realizar la solicitud HTTP;
+4. verificar la respuesta;
+5. interpretar el JSON;
+6. mostrar el resultado en pantalla.
+
+No se debe utilizar una API pública externa para reemplazar esta demostración.
+
+La solicitud debe dirigirse al backend propio del proyecto.
+
+======================================================================
+32. DIRECCIÓN UTILIZADA PARA ALCANZAR EL BACKEND
+======================================================================
+
+Durante la presentación debe explicarse qué dirección utilizó Flutter para
+alcanzar el backend y por qué.
+
+No se debe asumir que localhost dentro del dispositivo Android corresponde al
+equipo que ejecuta Node.js.
+
+La dirección se definirá según el destino final.
+
+Si se utiliza emulador Android:
+Se configurará la dirección correspondiente al host del emulador.
+
+Si se utiliza dispositivo físico:
+Se utilizará una dirección de red del equipo que pueda ser alcanzada por el
+teléfono.
+
+La URL debe mantenerse configurable.
+
+No debe quedar una IP personal fija como única opción del código.
+
+======================================================================
+33. TRÁFICO LOCAL SIN CIFRAR
+======================================================================
+
+Si durante desarrollo se utiliza HTTP local, se debe autorizar únicamente lo
+necesario para comunicarse con el backend de desarrollo.
+
+La autorización debe ser acotada.
+
+No se debe convertir una configuración de desarrollo en la configuración de
+distribución final.
+
+La configuración debe quedar explicada en README.
+
+Antes de cualquier distribución real, esta excepción debe eliminarse o
+reemplazarse por comunicación segura.
+
+======================================================================
+34. DIAGNÓSTICO DEL ENTORNO FLUTTER
+======================================================================
+
+El comando de diagnóstico requerido es:
+
+flutter doctor -v
+
+Durante el video se debe mostrar la salida completa.
+
+No debe mostrarse únicamente una frase indicando que Flutter funciona.
+
+El entorno actual identificado utiliza:
+
+Flutter 3.41.7 stable
+Dart 3.11.5
+Android SDK 36.1.0
+OpenJDK 21
+
+El entorno actual presenta un aviso relacionado con componentes de Visual
+Studio para desarrollo de aplicaciones Windows.
+
+El destino principal del proyecto es Android.
+
+No se instalarán componentes de desarrollo Windows únicamente para este
+proyecto mientras no sean necesarios para ejecutar el destino Android.
+
+La situación del diagnóstico que finalmente se presente debe explicarse de
+forma transparente.
+
+======================================================================
+35. README OBLIGATORIO
+======================================================================
+
+El repositorio debe contener README.md.
+
+El README debe permitir a un tercero reproducir el entorno.
+
+Como mínimo debe documentar:
+
+- nombre del proyecto;
+- descripción breve;
+- tecnologías;
+- versiones utilizadas;
+- requisitos previos;
+- instalación de PostgreSQL;
+- creación de la base de datos;
+- configuración de variables de entorno;
+- instalación de dependencias del backend;
+- migraciones de Prisma;
+- seed;
+- ejecución del backend;
+- ubicación o acceso a Swagger;
+- ejecución de pruebas básicas;
+- instalación o verificación de Flutter;
+- ejecución de Flutter;
+- configuración de URL_API;
+- dirección usada para alcanzar el backend;
+- configuración de tráfico HTTP local cuando corresponda;
+- ejecución sobre el destino Android;
+- limitaciones conocidas;
+- dificultades relevantes encontradas durante la configuración.
+
+El README debe utilizar comandos que otra persona pueda copiar y ejecutar.
+
+No debe asumir conocimiento de rutas privadas del equipo original.
+
+======================================================================
+36. CONVENCIONES DE IDIOMA EN EL CÓDIGO
+======================================================================
+
+Todo nombre que sea controlado por el proyecto debe escribirse en español
+latino.
+
+Esto aplica a:
+
+- variables;
+- constantes;
+- funciones;
+- métodos;
+- clases;
+- tipos propios;
+- servicios;
+- utilidades;
+- archivos propios cuando el nombre no esté impuesto por una herramienta;
+- propiedades propias;
+- mensajes propios;
+- nombres de endpoints propios;
+- nombres funcionales de modelos.
+
+Convención recomendada:
+
+Variables y funciones:
+camelCase
+
+Ejemplos:
+usuarioEncontrado
+cantidadDisponible
+registrarVenta
+obtenerProductos
+validarStockDisponible
+generarTokenAcceso
+
+Clases y tipos:
+PascalCase
+
+Ejemplos:
+ServicioProductos
+ServicioVentas
+RespuestaApi
+
+No se deben traducir:
+
+- palabras reservadas de JavaScript, TypeScript o Dart;
+- clases o funciones pertenecientes a bibliotecas externas;
+- nombres que una herramienta requiera exactamente;
+- propiedades estándar de HTTP;
+- nombres oficiales de tecnologías.
+
+Ejemplos que permanecen como están:
+
+async
+await
+Promise
+Request
+Response
+PrismaClient
+Authorization
+Bearer
+
+======================================================================
+37. CONVENCIONES DE COMENTARIOS
+======================================================================
+
+Los comentarios deben existir únicamente cuando realmente ayuden a comprender
+CÓMO funciona una parte del código o POR QUÉ se tomó una decisión.
+
+No se deben escribir comentarios que repitan lo que el nombre de la función o
+la línea ya indica.
+
+Comentario incorrecto:
+
+// Genera el token
+
+Comentario correcto:
+
+// Firma el JWT con el identificador y rol del usuario usando la clave definida en el entorno
+
+Comentario incorrecto:
+
+// Actualiza stock
+
+Comentario correcto:
+
+// Actualiza el stock dentro de la misma transacción para evitar guardar una venta inconsistente
+
+En archivos de código que admitan esta sintaxis, únicamente se utilizarán
+comentarios:
+
+//
+
+No utilizar comentarios de bloque.
+
+No utilizar comentarios decorativos con líneas de símbolos.
+
+No llenar el código de comentarios.
+
+Si el código puede explicarse correctamente mediante nombres claros, no debe
+agregarse un comentario.
+
+En formatos que no admitan comentarios //, como JSON, no se deben introducir
+comentarios inválidos.
+
+======================================================================
+38. TRANSACCIONES Y CONSISTENCIA EN VENTAS
+======================================================================
+
+Registrar una venta modifica información relacionada entre sí.
+
+La operación debe mantener consistencia.
+
+Como mínimo, el registro de:
+
+- Venta;
+- DetalleVenta;
+- actualización de stock;
+
+debe tratarse como una única operación lógica.
+
+Si una parte necesaria falla, no debe quedar una venta parcialmente
+registrada con stock inconsistente.
+
+Prisma debe utilizar una transacción para mantener esta consistencia.
+
+La solución debe mantenerse sencilla y limitar la transacción a las
+operaciones realmente necesarias.
+
+======================================================================
+39. REPORTES
+======================================================================
+
+El proyecto original contempla reportes que faciliten la toma de decisiones.
+
+La implementación debe ser básica.
+
+No se debe crear un módulo de inteligencia de negocios.
+
+El reporte o resumen debe utilizar únicamente información ya almacenada por el
+proyecto.
+
+Puede presentar información sencilla derivada de:
+
+- productos;
+- stock;
+- ventas;
+- ingresos;
+- gastos.
+
+La implementación exacta debe elegirse buscando la alternativa que permita
+cumplir la demostración de forma más simple.
+
+Parte del procesamiento de reportes puede utilizarse para demostrar el worker.
+
+======================================================================
+40. EVIDENCIAS
+======================================================================
+
+Se deben registrar evidencias de las solicitudes y respuestas obtenidas.
+
+Las evidencias deben permitir demostrar:
+
+- endpoints funcionando;
+- validaciones;
+- errores;
+- autenticación;
+- solicitudes no autorizadas;
+- CRUD de Producto;
+- regla de stock;
+- caché;
+- N+1 antes de la corrección;
+- N+1 después de la corrección;
+- worker;
+- comparación antes y después;
+- aplicación Flutter ejecutándose;
+- respuesta del backend mostrada en Flutter.
+
+No es necesario producir evidencia duplicada que no aporte a la presentación.
+
+======================================================================
+41. PRODUCTO ESPERADO: VIDEO EXPLICATIVO
+======================================================================
+
+El producto esperado es un video explicativo.
+
+El video debe presentar el proyecto Naye Fashion Store.
+
+Debe incluir, según corresponda al alcance de la actividad:
+
+- presentación del proyecto;
+- presentación y justificación del framework seleccionado;
+- versiones instaladas;
+- salida completa del comando de diagnóstico;
+- estructura del proyecto;
+- ejecución de la aplicación sobre el destino configurado;
+- explicación de la dirección utilizada para alcanzar el backend;
+- explicación de por qué se utilizó esa dirección;
+- solicitud exitosa desde Flutter hacia la propia API;
+- respuesta recibida;
+- limitaciones del entorno;
+- dificultades encontradas.
+
+Para la actividad de backend también se debe disponer de evidencia suficiente
+para explicar:
+
+- CRUD;
+- validaciones;
+- reglas de negocio;
+- autenticación;
+- documentación Swagger;
+- caché;
+- N+1;
+- eager loading;
+- worker;
+- comparación antes y después.
+
+======================================================================
+42. MODALIDAD DE ENTREGA
+======================================================================
+
+La modalidad corresponde a la modalidad del proyecto integrador.
+
+Si la entrega es individual:
+El video será individual.
+
+Si la entrega es grupal:
+Se realizará un único video grupal.
+
+En una entrega grupal deben participar todos los integrantes.
+
+También debe evidenciarse el entorno configurado por cada integrante cuando la
+configuración sea específica de cada equipo informático.
+
+======================================================================
+43. EVIDENCIA ADICIONAL DE ENTREGA
+======================================================================
+
+Debe adjuntarse el enlace al repositorio.
+
+El repositorio debe contener:
+
+- código del backend;
+- código de la aplicación Flutter;
+- README;
+- documentación necesaria;
+- migraciones;
+- archivos de dependencias;
+- archivos de configuración de ejemplo;
+- especificación OpenAPI;
+- requerimientos del proyecto;
+- modelo de base de datos;
+- plan de ejecución.
+
+No deben incluirse secretos reales.
+
+======================================================================
+44. FECHA DE ENTREGA
+======================================================================
+
+La fecha de entrega será la indicada en el cronograma del aula.
+
+No se fija una fecha distinta dentro del código o la documentación técnica.
+
+======================================================================
+45. REGISTRO ACADÉMICO DE HERRAMIENTAS DE INTELIGENCIA ARTIFICIAL
+======================================================================
+
+La guía académica indica que, en caso de utilizar herramientas de inteligencia
+artificial, debe registrarse:
+
+- herramienta empleada;
+- consultas realizadas;
+- resultados utilizados;
+- modificaciones aplicadas;
+- verificaciones técnicas efectuadas.
+
+Este requerimiento corresponde a la trazabilidad académica solicitada por la
+guía.
+
+No forma parte de la sección de herramientas y tecnologías del sistema.
+
+No debe sustituir las verificaciones técnicas reales del proyecto.
+
+======================================================================
+46. CRITERIOS DE ACEPTACIÓN DEL BACKEND
+======================================================================
+
+El backend se considerará funcional cuando se cumpla todo lo siguiente:
+
+- inicia sin errores bloqueantes;
+- conecta correctamente con PostgreSQL;
+- Prisma puede generar el cliente;
+- las migraciones pueden ejecutarse;
+- los datos iniciales pueden cargarse;
+- el usuario puede autenticarse;
+- se obtiene un JWT válido;
+- los endpoints protegidos rechazan acceso sin autenticación;
+- el CRUD de Producto funciona;
+- el listado de Producto utiliza paginación;
+- los datos se validan;
+- los errores utilizan códigos HTTP adecuados;
+- las respuestas JSON siguen un formato consistente;
+- se puede registrar una venta válida;
+- una venta no puede superar el stock disponible;
+- una venta actualiza correctamente el stock;
+- una venta mantiene consistencia entre Venta, DetalleVenta y stock;
+- pueden registrarse movimientos financieros;
+- puede consultarse un reporte o resumen sencillo;
+- Swagger permite revisar la API;
+- Postman permite demostrar casos exitosos y de error;
+- existe caché cache-aside;
+- existe TTL;
+- existe invalidación explícita;
+- se demuestra una consulta con riesgo N+1;
+- se demuestra su corrección;
+- se utiliza eager loading de manera justificada;
+- existe una tarea ejecutada mediante worker;
+- la autenticación evita consultas redundantes innecesarias;
+- existe evidencia de comparación antes y después.
+
+======================================================================
+47. CRITERIOS DE ACEPTACIÓN DE FLUTTER
+======================================================================
+
+La parte móvil se considerará funcional para el alcance actual cuando:
+
+- el proyecto Flutter existe;
+- utiliza Flutter 3.41.7;
+- puede ejecutar flutter pub get;
+- puede compilarse para Android;
+- puede ejecutarse sobre el destino configurado;
+- la recarga en caliente funciona;
+- la URL de la API es configurable;
+- tiene permiso de Internet cuando corresponda;
+- puede alcanzar el backend local;
+- realiza una solicitud hacia la API de Naye Fashion Store;
+- recibe una respuesta JSON;
+- muestra en pantalla información proveniente de la API;
+- se puede explicar qué dirección se utilizó y por qué.
+
+======================================================================
+48. CRITERIOS DE ACEPTACIÓN DE REPRODUCIBILIDAD
+======================================================================
+
+La reproducibilidad se considerará cumplida cuando otra persona pueda seguir el
+README y completar, sin información privada adicional, como mínimo:
+
+1. clonar;
+2. configurar PostgreSQL;
+3. crear variables de entorno;
+4. instalar dependencias;
+5. ejecutar migraciones;
+6. ejecutar seed;
+7. iniciar backend;
+8. abrir Swagger;
+9. probar un endpoint;
+10. obtener dependencias de Flutter;
+11. configurar URL_API;
+12. ejecutar Flutter;
+13. consumir el backend.
+
+Si para completar alguno de estos pasos es necesario conocer una configuración
+que únicamente existe en el equipo original y no está documentada, el proyecto
+no se considerará completamente reproducible.
+
+======================================================================
+49. ELEMENTOS FUERA DE ALCANCE
+======================================================================
+
+Los siguientes elementos no deben implementarse salvo que una instrucción
+académica posterior los vuelva obligatorios:
+
+- pagos en línea;
+- pasarela de pagos;
+- PayPal;
+- Stripe;
+- carrito de compras ecommerce;
+- sistema de cupones;
+- favoritos;
+- chat;
+- notificaciones push;
+- recomendaciones automáticas;
+- inteligencia artificial dentro de la aplicación;
+- panel administrativo web;
+- frontend web;
+- microservicios;
+- Kubernetes;
+- infraestructura distribuida;
+- Redis si no resulta necesario;
+- BullMQ si no resulta necesario;
+- Docker si no resulta necesario;
+- CI/CD complejo;
+- almacenamiento de imágenes en la nube;
+- recuperación avanzada de contraseñas;
+- publicación en Play Store;
+- publicación en App Store;
+- integración con servicios de terceros no requeridos;
+- arquitectura empresarial innecesaria;
+- patrones de diseño añadidos únicamente por estética;
+- pruebas automatizadas extensas si la guía puede cumplirse con las pruebas
+  solicitadas mediante Postman;
+- funcionalidades comerciales que no formen parte del proyecto planteado.
+
+======================================================================
+50. REGLA PARA CAMBIOS FUTUROS
+======================================================================
+
+Una vez aprobado este documento, no se debe cambiar el alcance durante la
+implementación sin una razón concreta.
+
+Se permite cambiar una decisión técnica únicamente cuando:
+
+- impide que el proyecto funcione;
+- impide cumplir un requisito;
+- genera un problema de seguridad relevante;
+- genera un problema real de compatibilidad;
+- impide reproducir el proyecto;
+- el docente modifica expresamente el requerimiento.
+
+Cuando un cambio sea necesario se debe escoger nuevamente la solución más
+simple que resuelva el problema.
+
+No se debe aprovechar un cambio para introducir funcionalidades adicionales.
+
+======================================================================
+51. DOCUMENTOS QUE COMPLEMENTAN ESTE ARCHIVO
+======================================================================
+
+Este archivo define QUÉ debe cumplir el proyecto.
+
+No debe duplicarse innecesariamente su contenido en otros documentos.
+
+02_BASE_DE_DATOS.txt
+Definirá:
+
+- tablas;
+- campos;
+- tipos;
+- claves;
+- relaciones;
+- restricciones;
+- índices;
+- normalización;
+- modelo Prisma;
+- corrección exacta de Venta y DetalleVenta.
+
+03_PLAN_EJECUCION.txt
+Definirá:
+
+- fases;
+- orden de implementación;
+- objetivo de cada fase;
+- validaciones;
+- criterio para avanzar;
+- comandos;
+- pruebas de cada etapa.
+
+README.md
+Definirá:
+
+- pasos reproducibles de configuración;
+- versiones realmente utilizadas;
+- instalación;
+- ejecución;
+- variables de entorno;
+- migraciones;
+- Flutter;
+- dirección del backend;
+- limitaciones;
+- dificultades.
+
+======================================================================
+52. DEFINICIÓN FINAL DE TERMINADO
+======================================================================
+
+Naye Fashion Store se considerará terminado para el alcance definido cuando:
+
+- el modelo de datos está implementado y es consistente;
+- el backend funciona con PostgreSQL;
+- el ORM gestiona la persistencia;
+- el CRUD principal está implementado;
+- las reglas de negocio funcionan;
+- las validaciones funcionan;
+- la autenticación funciona;
+- las respuestas y errores son consistentes;
+- la API está documentada;
+- los endpoints pueden demostrarse mediante Postman;
+- los requisitos de seguridad solicitados están cubiertos;
+- se implementó y demostró cache-aside con TTL e invalidación;
+- se identificó y corrigió el riesgo N+1;
+- se aplicó y justificó eager loading;
+- existe una tarea asíncrona mediante worker;
+- se optimizó la validación de autenticación evitando consultas redundantes;
+- existe una comparación antes y después;
+- Flutter puede ejecutarse;
+- Flutter puede alcanzar el backend propio;
+- Flutter puede mostrar una respuesta real de la API;
+- README permite reproducir el entorno;
+- GitHub contiene el proyecto;
+- existe evidencia suficiente para realizar el video solicitado.
+
+======================================================================
+53. PRINCIPIO FINAL
+======================================================================
+
+SIMPLE.
+FUNCIONAL.
+SEGURO.
+REPRODUCIBLE.
+DEMOSTRABLE.
+
+Si dos implementaciones cumplen exactamente el mismo requisito, se utilizará
+la más sencilla.
+
+No hacer más de lo solicitado.
+No hacer menos de lo solicitado.
+No introducir complejidad que no aporte al cumplimiento del proyecto.
+
+FIN DEL DOCUMENTO
