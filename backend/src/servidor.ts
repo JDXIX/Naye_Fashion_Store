@@ -13,6 +13,7 @@ import { especificacionOpenApi } from "./documentacion/openapi.js";
 const aplicacion = express();
 const puerto = Number(process.env.PUERTO) || 3000;
 
+// Configura middleware base, documentacion Swagger y rutas de la API con proteccion por token
 aplicacion.use(express.json());
 aplicacion.use("/api/documentacion", swaggerUi.serve, swaggerUi.setup(especificacionOpenApi));
 

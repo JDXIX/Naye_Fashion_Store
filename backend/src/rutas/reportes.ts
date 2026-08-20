@@ -29,6 +29,7 @@ rutas.post("/generar", async (_solicitud, respuesta) => {
     prisma.movimientoFinanciero.aggregate({ where: { tipoMovimiento: "ingreso" }, _sum: { monto: true } }),
     prisma.movimientoFinanciero.aggregate({ where: { tipoMovimiento: "gasto" }, _sum: { monto: true } })
   ]);
+  // Delega el procesamiento del reporte a un worker thread para no bloquear el bucle de eventos principal
   const trabajador = new Worker(new URL("../utilidades/reporte.worker.js", import.meta.url));
   trabajador.postMessage({
     ventas: Number(ventas._sum.total ?? 0),

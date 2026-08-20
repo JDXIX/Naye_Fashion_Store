@@ -1,3 +1,4 @@
+// Define la especificacion OpenAPI desacoplada del codigo de controladores para evitar bloques extensos en rutas
 export const especificacionOpenApi = {
   openapi: "3.0.3",
   info: {

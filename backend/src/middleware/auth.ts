@@ -37,6 +37,7 @@ export function requiereAutenticacion(
       return;
     }
 
+    // Usa los datos firmados en el JWT para evitar consultar la base de datos en cada peticion cuando el id y rol son suficientes
     solicitud.usuario = { idUsuario, rol };
     siguiente();
   } catch {

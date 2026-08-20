@@ -17,6 +17,7 @@ rutas.post("/", async (solicitud, respuesta) => {
   const idUsuario = solicitud.usuario.idUsuario;
 
   try {
+    // Ejecuta venta, detalles y descuento de stock en una misma transaccion para evitar inconsistencias o registros parciales
     const venta = await prisma.$transaction(async (transaccion) => {
       const detalles = [];
       for (const entrada of resultado.data.detalles) {
@@ -24,6 +25,7 @@ rutas.post("/", async (solicitud, respuesta) => {
         if (!producto || producto.stock < entrada.cantidad) {
           throw new Error("STOCK_INSUFICIENTE");
         }
+        // Calcula subtotales y total en el backend usando los precios reales de base de datos para impedir manipulaciones en el cliente
         const subtotal = Math.round(Number(producto.precio) * entrada.cantidad * 100) / 100;
         detalles.push({ idProducto: producto.idProducto, cantidad: entrada.cantidad, subtotal });
       }

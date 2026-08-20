@@ -23,6 +23,7 @@ rutas.post("/iniciar-sesion", async (solicitud, respuesta) => {
     return;
   }
 
+  // Emite el token firmado con id y rol tras validar credenciales con hash bcrypt
   const token = jwt.sign(
     { idUsuario: usuario.idUsuario, rol: usuario.rol },
     process.env.JWT_SECRETO ?? "",

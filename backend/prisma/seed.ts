@@ -12,6 +12,7 @@ const prisma = new PrismaClient({ adapter: adaptador });
 async function sembrar() {
   const contrasena = await bcrypt.hash("Naye123!", 10);
 
+  // Utiliza upsert para garantizar la siembra idempotente y evitar duplicidad en ejecuciones repetidas
   const usuario = await prisma.usuario.upsert({
     where: { correo: "admin@naye.test" },
     update: {},
