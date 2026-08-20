@@ -41,6 +41,7 @@ model Producto {
   categoria    Categoria     @relation(fields: [idCategoria], references: [idCategoria])
   detalles     DetalleVenta[]
 
+  @@index([idCategoria])
   @@map("producto")
 }
 
@@ -52,6 +53,7 @@ model Venta {
   usuario    Usuario       @relation(fields: [idUsuario], references: [idUsuario])
   detalles   DetalleVenta[]
 
+  @@index([idUsuario])
   @@map("venta")
 }
 
@@ -64,6 +66,8 @@ model DetalleVenta {
   venta      Venta    @relation(fields: [idVenta], references: [idVenta])
   producto   Producto @relation(fields: [idProducto], references: [idProducto])
 
+  @@index([idVenta])
+  @@index([idProducto])
   @@map("detalle_venta")
 }
 

@@ -59,6 +59,11 @@ rutas.post("/", async (solicitud, respuesta) => {
     respuesta.status(400).json({ exito: false, mensaje: "Datos de producto invalidos" });
     return;
   }
+  const categoria = await prisma.categoria.findUnique({ where: { idCategoria: resultado.data.idCategoria } });
+  if (!categoria) {
+    respuesta.status(404).json({ exito: false, mensaje: "Categoria no encontrada" });
+    return;
+  }
   const producto = await prisma.producto.create({ data: resultado.data });
   cacheProductos.limpiar();
   respuesta.status(201).json({ exito: true, datos: presentar(producto) });
@@ -69,6 +74,13 @@ rutas.patch("/:id", async (solicitud, respuesta) => {
   if (!resultado.success) {
     respuesta.status(400).json({ exito: false, mensaje: "Datos de producto invalidos" });
     return;
+  }
+  if (resultado.data.idCategoria !== undefined) {
+    const categoria = await prisma.categoria.findUnique({ where: { idCategoria: resultado.data.idCategoria } });
+    if (!categoria) {
+      respuesta.status(404).json({ exito: false, mensaje: "Categoria no encontrada" });
+      return;
+    }
   }
   try {
     const producto = await prisma.producto.update({ where: { idProducto: Number(solicitud.params.id) }, data: resultado.data });

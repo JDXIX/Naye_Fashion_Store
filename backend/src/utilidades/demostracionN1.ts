@@ -6,18 +6,21 @@ const adaptador = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter: adaptador });
 
 async function demostrar() {
-  const categorias = await prisma.categoria.findMany();
-  const inicioAntes = Date.now();
-  for (const categoria of categorias) {
-    await prisma.producto.findMany({ where: { idCategoria: categoria.idCategoria } });
+  console.log("ANTES - caso N+1: consultas repetidas Venta -> DetalleVenta -> Producto");
+  const ventas = await prisma.venta.findMany();
+  for (const venta of ventas) {
+    const detalles = await prisma.detalleVenta.findMany({ where: { idVenta: venta.idVenta } });
+    for (const detalle of detalles) {
+      await prisma.producto.findUnique({ where: { idProducto: detalle.idProducto } });
+    }
   }
-  const antes = Date.now() - inicioAntes;
 
-  const inicioDespues = Date.now();
-  await prisma.categoria.findMany({ include: { productos: true } });
-  const despues = Date.now() - inicioDespues;
+  console.log("DESPUES - eager loading: una consulta Prisma con Venta + DetalleVenta + Producto");
+  const ventasOptimizadas = await prisma.venta.findMany({
+    include: { detalles: { include: { producto: true } } }
+  });
 
-  console.log(JSON.stringify({ antesN1Milisegundos: antes, despuesEagerLoadingMilisegundos: despues }));
+  console.log(JSON.stringify({ ventasAntes: ventas.length, ventasDespues: ventasOptimizadas.length }));
 }
 
 demostrar().finally(() => prisma.$disconnect());
