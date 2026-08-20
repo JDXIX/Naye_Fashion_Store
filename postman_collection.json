@@ -1,16 +1,1155 @@
 {
   "info": {
+    "_postman_id": "naye-fashion-store-collection-v2-1",
     "name": "Naye Fashion Store API",
+    "description": "Colección completa de pruebas para la API REST de Naye Fashion Store",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:3000" },
-    { "key": "token", "value": "" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "idProducto",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "idProductoVenta",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "idProductoCache",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "idVenta",
+      "value": "1",
+      "type": "string"
+    }
   ],
   "item": [
-    { "name": "Salud", "request": { "method": "GET", "url": "{{baseUrl}}/api/salud" } },
-    { "name": "Iniciar sesion", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"correo\": \"admin@naye.test\",\n  \"contrasena\": \"Naye123!\"\n}" }, "url": "{{baseUrl}}/api/autenticacion/iniciar-sesion" } },
-    { "name": "Listar productos", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/productos" } },
-    { "name": "Resumen", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/reportes/resumen" } }
+    {
+      "name": "Salud",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/salud",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "salud"]
+        }
+      }
+    },
+    {
+      "name": "Autenticacion",
+      "item": [
+        {
+          "name": "1. Login correcto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var respuesta = pm.response.json();",
+                  "    if (respuesta.token) {",
+                  "        pm.collectionVariables.set(\"token\", respuesta.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"admin@naye.test\",\n  \"contrasena\": \"Naye123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/autenticacion/iniciar-sesion",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "autenticacion", "iniciar-sesion"]
+            }
+          }
+        },
+        {
+          "name": "2. Contraseña incorrecta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"admin@naye.test\",\n  \"contrasena\": \"ClaveErronea123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/autenticacion/iniciar-sesion",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "autenticacion", "iniciar-sesion"]
+            }
+          }
+        },
+        {
+          "name": "3. Usuario inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"noexiste@naye.test\",\n  \"contrasena\": \"Naye123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/autenticacion/iniciar-sesion",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "autenticacion", "iniciar-sesion"]
+            }
+          }
+        },
+        {
+          "name": "4. Endpoint protegido sin token -> 401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "5. Endpoint protegido con token valido",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/categorias",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categorias"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "1. Crear producto valido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var respuesta = pm.response.json();",
+                  "    if (respuesta.datos && respuesta.datos.idProducto) {",
+                  "        pm.collectionVariables.set(\"idProducto\", respuesta.datos.idProducto.toString());",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCategoria\": 1,\n  \"nombre\": \"Blusa Seda Elegante\",\n  \"descripcion\": \"Blusa de seda para dama\",\n  \"talla\": \"S\",\n  \"color\": \"Blanco\",\n  \"precio\": 29.90,\n  \"stock\": 15\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "2. Crear producto con precio invalido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCategoria\": 1,\n  \"nombre\": \"Producto Invalido\",\n  \"talla\": \"M\",\n  \"color\": \"Rojo\",\n  \"precio\": -10,\n  \"stock\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "3. Crear producto con stock invalido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCategoria\": 1,\n  \"nombre\": \"Producto Invalido\",\n  \"talla\": \"M\",\n  \"color\": \"Rojo\",\n  \"precio\": 25.00,\n  \"stock\": -5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "4. Crear producto con categoria inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCategoria\": 9999,\n  \"nombre\": \"Producto Fantasma\",\n  \"talla\": \"M\",\n  \"color\": \"Negro\",\n  \"precio\": 30.00,\n  \"stock\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "5. Listar productos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var respuesta = pm.response.json();",
+                  "    var productoConStock = (respuesta.datos || []).find(function (producto) { return producto.stock > 0; });",
+                  "    if (productoConStock) {",
+                  "        pm.collectionVariables.set(\"idProductoVenta\", productoConStock.idProducto.toString());",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "6. Listar productos paginado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos?pagina=1&limite=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "7. Consultar producto existente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProducto}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProducto}}"]
+            }
+          }
+        },
+        {
+          "name": "8. Consultar producto inexistente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/99999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "99999"]
+            }
+          }
+        },
+        {
+          "name": "9. Actualizar producto correctamente",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"precio\": 34.50,\n  \"stock\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProducto}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProducto}}"]
+            }
+          }
+        },
+        {
+          "name": "10. Actualizar producto con dato invalido",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"precio\": -15.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProducto}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProducto}}"]
+            }
+          }
+        },
+        {
+          "name": "11. Eliminar producto valido",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProducto}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProducto}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ventas",
+      "item": [
+        {
+          "name": "1. Registrar venta valida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var respuesta = pm.response.json();",
+                  "    if (respuesta.datos && respuesta.datos.idVenta) {",
+                  "        pm.collectionVariables.set(\"idVenta\", respuesta.datos.idVenta.toString());",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detalles\": [\n    {\n      \"idProducto\": {{idProductoVenta}},\n      \"cantidad\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas"]
+            }
+          }
+        },
+        {
+          "name": "1.1. Eliminar producto referenciado por la venta -> 409",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProductoVenta}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProductoVenta}}"]
+            }
+          }
+        },
+        {
+          "name": "2. Registrar venta con stock insuficiente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detalles\": [\n    {\n      \"idProducto\": 1,\n      \"cantidad\": 9999\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas"]
+            }
+          }
+        },
+        {
+          "name": "3. Registrar venta con cantidad 0 o negativa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detalles\": [\n    {\n      \"idProducto\": 1,\n      \"cantidad\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas"]
+            }
+          }
+        },
+        {
+          "name": "4. Registrar venta con producto inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detalles\": [\n    {\n      \"idProducto\": 99999,\n      \"cantidad\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas"]
+            }
+          }
+        },
+        {
+          "name": "5. Listar ventas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas"]
+            }
+          }
+        },
+        {
+          "name": "6. Listar ventas paginado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas?pagina=1&limite=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas"],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "7. Consultar venta existente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas/{{idVenta}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas", "{{idVenta}}"]
+            }
+          }
+        },
+        {
+          "name": "8. Consultar venta inexistente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas/99999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas", "99999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "1. Registrar ingreso valido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoMovimiento\": \"ingreso\",\n  \"descripcion\": \"Venta directa en tienda\",\n  \"monto\": 120.50,\n  \"fecha\": \"2026-08-20T10:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"]
+            }
+          }
+        },
+        {
+          "name": "2. Registrar gasto valido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoMovimiento\": \"gasto\",\n  \"descripcion\": \"Pago de servicios de luz\",\n  \"monto\": 35.00,\n  \"fecha\": \"2026-08-20T11:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"]
+            }
+          }
+        },
+        {
+          "name": "3. Tipo de movimiento invalido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoMovimiento\": \"transferencia\",\n  \"descripcion\": \"Movimiento no permitido\",\n  \"monto\": 50.00,\n  \"fecha\": \"2026-08-20T12:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"]
+            }
+          }
+        },
+        {
+          "name": "4. Monto invalido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoMovimiento\": \"ingreso\",\n  \"descripcion\": \"Monto negativo invalido\",\n  \"monto\": -50.00,\n  \"fecha\": \"2026-08-20T12:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"]
+            }
+          }
+        },
+        {
+          "name": "5. Fecha invalida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoMovimiento\": \"ingreso\",\n  \"descripcion\": \"Formato de fecha erroneo\",\n  \"monto\": 50.00,\n  \"fecha\": \"fecha-invalida\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"]
+            }
+          }
+        },
+        {
+          "name": "6. Listar movimientos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"]
+            }
+          }
+        },
+        {
+          "name": "7. Listar movimientos paginado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/movimientos-financieros?pagina=1&limite=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movimientos-financieros"],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reportes",
+      "item": [
+        {
+          "name": "1. Resumen financiero",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reportes/resumen",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reportes", "resumen"]
+            }
+          }
+        },
+        {
+          "name": "2. Generar reporte asincrono worker",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reportes/generar",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reportes", "generar"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Optimizacion",
+      "item": [
+        {
+          "name": "1. Productos - Cache MISS",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos?pagina=1&limite=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2. Productos - Cache HIT",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos?pagina=1&limite=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Crear producto - Invalidar cache",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var respuesta = pm.response.json();",
+                  "    if (respuesta.datos && respuesta.datos.idProducto) {",
+                  "        pm.collectionVariables.set(\"idProductoCache\", respuesta.datos.idProducto.toString());",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCategoria\": 1,\n  \"nombre\": \"Producto Test Cache\",\n  \"descripcion\": \"Producto para comprobar invalidacion de cache\",\n  \"talla\": \"L\",\n  \"color\": \"Negro\",\n  \"precio\": 50.00,\n  \"stock\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            }
+          }
+        },
+        {
+          "name": "4. Actualizar producto - Invalidar cache",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"precio\": 55.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProductoCache}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProductoCache}}"]
+            }
+          }
+        },
+        {
+          "name": "5. Eliminar producto - Invalidar cache",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/{{idProductoCache}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "{{idProductoCache}}"]
+            }
+          }
+        },
+        {
+          "name": "6. Worker - Generar reporte en segundo plano",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reportes/generar",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reportes", "generar"]
+            }
+          }
+        },
+        {
+          "name": "7. Eager loading - Consultar venta con detalle y producto",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ventas/{{idVenta}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ventas", "{{idVenta}}"]
+            }
+          }
+        }
+      ]
+    }
   ]
 }

@@ -27,7 +27,7 @@ aplicacion.use("/api/autenticacion", rutasAutenticacion);
 aplicacion.use("/api/categorias", requiereAutenticacion, rutasCategorias);
 aplicacion.use("/api/productos", requiereAutenticacion, rutasProductos);
 aplicacion.use("/api/ventas", requiereAutenticacion, rutasVentas);
-aplicacion.use("/api/movimientos", requiereAutenticacion, rutasMovimientos);
+aplicacion.use("/api/movimientos-financieros", requiereAutenticacion, rutasMovimientos);
 aplicacion.use("/api/reportes", requiereAutenticacion, rutasReportes);
 
 aplicacion.listen(puerto, () => {

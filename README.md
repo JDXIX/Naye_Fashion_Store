@@ -86,7 +86,7 @@ Endpoints principales:
 - `GET|POST /api/productos`
 - `GET|PATCH|DELETE /api/productos/:id`
 - `GET|POST /api/ventas`
-- `GET|POST /api/movimientos`
+- `GET|POST /api/movimientos-financieros`
 - `GET /api/reportes/resumen`
 - `POST /api/reportes/generar`
 - `GET /api/documentacion`
