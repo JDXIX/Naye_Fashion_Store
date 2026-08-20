@@ -73,8 +73,9 @@ class _ProductosPaginaState extends State<ProductosPagina> {
           if (estado.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (estado.hasError)
+          if (estado.hasError) {
             return Center(child: Text(estado.error.toString()));
+          }
           final datos = estado.data ?? [];
           return ListView.builder(
             itemCount: datos.length,

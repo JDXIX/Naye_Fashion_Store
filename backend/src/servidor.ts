@@ -14,7 +14,7 @@ const aplicacion = express();
 const puerto = Number(process.env.PUERTO) || 3000;
 
 aplicacion.use(express.json());
-aplicacion.use("/api-documentacion", swaggerUi.serve, swaggerUi.setup(especificacionOpenApi));
+aplicacion.use("/api/documentacion", swaggerUi.serve, swaggerUi.setup(especificacionOpenApi));
 
 aplicacion.get("/api/salud", (_solicitud, respuesta) => {
   respuesta.status(200).json({

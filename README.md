@@ -89,7 +89,7 @@ Endpoints principales:
 - `GET|POST /api/movimientos`
 - `GET /api/reportes/resumen`
 - `POST /api/reportes/generar`
-- `GET /api-documentacion`
+- `GET /api/documentacion`
 
 Excepto salud y login, las rutas requieren `Authorization: Bearer <token>`.
 
