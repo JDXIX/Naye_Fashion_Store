@@ -326,7 +326,8 @@
                 "exec": [
                   "if (pm.response.code === 200) {",
                   "    var respuesta = pm.response.json();",
-                  "    var productoConStock = (respuesta.datos || []).find(function (producto) { return producto.stock > 0; });",
+                  "    var idProductoEliminable = pm.collectionVariables.get(\"idProducto\");",
+                  "    var productoConStock = (respuesta.datos || []).find(function (producto) { return producto.stock > 0 && producto.idProducto.toString() !== idProductoEliminable; });",
                   "    if (productoConStock) {",
                   "        pm.collectionVariables.set(\"idProductoVenta\", productoConStock.idProducto.toString());",
                   "    }",
