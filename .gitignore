@@ -6,6 +6,7 @@
 # Node.js
 node_modules/
 dist/
+backend/src/prisma/client/
 
 # Flutter y Dart
 .dart_tool/

@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "Naye Fashion Store API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    { "name": "Salud", "request": { "method": "GET", "url": "{{baseUrl}}/api/salud" } },
+    { "name": "Iniciar sesion", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"correo\": \"admin@naye.test\",\n  \"contrasena\": \"Naye123!\"\n}" }, "url": "{{baseUrl}}/api/autenticacion/iniciar-sesion" } },
+    { "name": "Listar productos", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/productos" } },
+    { "name": "Resumen", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/reportes/resumen" } }
+  ]
+}
